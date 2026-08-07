@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muzamil Mughal — Senior iOS Developer, On-device AI & Computer Vision</title>
+<meta name="description" content="Muzamil Mughal — Senior iOS Developer specializing in on-device AI and computer vision. Builder of PackageX's Vision SDK and 28+ shipped iOS apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E13;
+    --bg-panel:#12171F;
+    --bg-panel-2:#171E28;
+    --text:#E7ECEF;
+    --text-muted:#8A93A1;
+    --border:#232B36;
+    --accent:#4FE3B0;
+    --accent-dim:#2E7F65;
+    --accent-warm:#F2B84B;
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+    --sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  section{padding:96px 0;border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+  h2.section-title{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(1.5rem,3vw,2.1rem);
+    margin:6px 0 40px;
+    letter-spacing:-0.01em;
+  }
+  .muted{color:var(--text-muted);}
+
+  /* focus visibility */
+  a:focus-visible,button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(10,14,19,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;padding:0 28px;
+    display:flex;align-items:center;justify-content:space-between;
+    height:64px;
+  }
+  .brand{
+    font-family:var(--mono);font-weight:600;font-size:1rem;
+    letter-spacing:0.02em;color:var(--text);
+    display:flex;align-items:center;gap:8px;
+  }
+  .brand-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 8px var(--accent);}
+  nav.links{display:flex;gap:28px;font-family:var(--mono);font-size:0.82rem;}
+  nav.links a{color:var(--text-muted);transition:color .15s ease;margin-right:28px;}
+  nav.links a:last-child{margin-right:0;}
+  nav.links a:hover{color:var(--accent);}
+  .nav-cta{
+    font-family:var(--mono);font-size:0.78rem;
+    border:1px solid var(--accent-dim);color:var(--accent);
+    padding:7px 14px;border-radius:3px;transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--accent);color:#06110D;border-color:var(--accent);}
+  .nav-toggle{display:none;background:none;border:1px solid var(--border);color:var(--text);
+    padding:8px 10px;border-radius:3px;font-family:var(--mono);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding-top:120px;padding-bottom:80px;
+    position:relative;overflow:hidden;
+    border-bottom:1px solid var(--border);
+  }
+  .hero-grid{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:56px 56px;
+    opacity:0.35;
+    mask-image:radial-gradient(circle at 50% 30%, rgba(0,0,0,0.9), transparent 70%);
+  }
+  .scanline{
+    position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow:0 0 18px var(--accent);
+    animation:scanSweep 2.6s cubic-bezier(.4,0,.2,1) 1;
+    opacity:0.9;
+  }
+  @keyframes scanSweep{
+    0%{top:0;opacity:0;}
+    8%{opacity:1;}
+    92%{opacity:1;}
+    100%{top:100%;opacity:0;}
+  }
+  .hero-inner{position:relative;z-index:2;}
+  .hero-eyebrow{margin-bottom:22px;display:flex;align-items:center;gap:10px;}
+  .hero-eyebrow .bracket{color:var(--text-muted);}
+  h1.hero-name{
+    font-size:clamp(2.6rem,7vw,4.6rem);
+    font-weight:700;letter-spacing:-0.02em;line-height:1.02;
+    margin:0 0 14px;
+    opacity:0;transform:translateY(14px);
+    animation:revealUp .7s ease .35s forwards;
+  }
+  .hero-role{
+    font-family:var(--mono);font-size:clamp(0.95rem,2vw,1.15rem);
+    color:var(--accent);margin:0 0 24px;
+    opacity:0;transform:translateY(10px);
+    animation:revealUp .7s ease .55s forwards;
+  }
+  .hero-tagline{
+    max-width:620px;font-size:1.08rem;color:var(--text-muted);
+    margin:0 0 40px;
+    opacity:0;transform:translateY(10px);
+    animation:revealUp .7s ease .72s forwards;
+  }
+  @keyframes revealUp{to{opacity:1;transform:translateY(0);}}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;
+    opacity:0;animation:revealUp .7s ease .9s forwards;}
+  .btn{
+    font-family:var(--mono);font-size:0.85rem;padding:12px 22px;
+    border-radius:3px;transition:all .15s ease;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-solid{background:var(--accent);color:#06110D;font-weight:600;}
+  .btn-solid:hover{background:#6FF0C4;}
+  .btn-outline{border:1px solid var(--border);color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- STAT STRIP ---------- */
+  .stats{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+    background:var(--border);border:1px solid var(--border);
+    margin-top:8px;
+  }
+  .stat{
+    background:var(--bg-panel);padding:22px 16px;text-align:left;
+  }
+  .stat .num{
+    font-family:var(--mono);font-size:clamp(1.3rem,2.4vw,1.7rem);
+    color:var(--accent);font-weight:600;
+  }
+  .stat .label{
+    font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--text-muted);margin-top:6px;
+  }
+
+  /* ---------- REVEAL ON SCROLL (progressive enhancement; visible by default) ---------- */
+  .reveal{transition:opacity .6s ease,transform .6s ease;}
+  .reveal.pre{opacity:0;transform:translateY(16px);}
+  .reveal.pre.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about-layout{display:grid;grid-template-columns:1.3fr 0.7fr;gap:56px;align-items:start;}
+  .about-layout p{color:var(--text-muted);margin:0 0 18px;font-size:1.02rem;}
+  .about-layout p strong{color:var(--text);font-weight:600;}
+  .scan-target{
+    position:relative;aspect-ratio:1;border:1px solid var(--border);
+    border-radius:6px;background:var(--bg-panel);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .scan-target .doc{
+    width:52%;aspect-ratio:0.72;background:var(--bg-panel-2);
+    border:1px solid var(--border);border-radius:3px;padding:14px;
+  }
+  .scan-target .doc span{display:block;height:6px;background:var(--border);border-radius:2px;margin-bottom:8px;}
+  .scan-target .doc span:nth-child(1){width:70%;}
+  .scan-target .doc span:nth-child(2){width:90%;}
+  .scan-target .doc span:nth-child(3){width:55%;}
+  .scan-target .doc span:nth-child(4){width:80%;background:var(--accent-dim);}
+  .scan-target .sweep{
+    position:absolute;left:8%;right:8%;height:2px;background:var(--accent);
+    box-shadow:0 0 14px var(--accent);
+    animation:docSweep 3.2s ease-in-out infinite;
+  }
+  @keyframes docSweep{
+    0%,100%{top:20%;opacity:0.9;}
+    50%{top:78%;opacity:0.5;}
+  }
+  .scan-target .readout{
+    position:absolute;bottom:14px;left:14px;right:14px;
+    font-family:var(--mono);font-size:0.68rem;color:var(--accent);
+    letter-spacing:0.05em;
+  }
+
+  /* corner brackets, reusable */
+  .viewfinder{position:relative;}
+  .viewfinder .corner{
+    position:absolute;width:16px;height:16px;
+    border-color:var(--border);transition:all .2s ease;
+  }
+  .viewfinder .corner.tl{top:-1px;left:-1px;border-top:2px solid;border-left:2px solid;}
+  .viewfinder .corner.tr{top:-1px;right:-1px;border-top:2px solid;border-right:2px solid;}
+  .viewfinder .corner.bl{bottom:-1px;left:-1px;border-bottom:2px solid;border-left:2px solid;}
+  .viewfinder .corner.br{bottom:-1px;right:-1px;border-bottom:2px solid;border-right:2px solid;}
+  .viewfinder:hover .corner,.viewfinder:focus-within .corner{
+    border-color:var(--accent);
+    width:22px;height:22px;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+  .skill-group{background:var(--bg-panel);padding:22px 22px 24px;}
+  .skill-group h3{
+    font-family:var(--mono);font-size:0.75rem;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 14px;
+  }
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:var(--mono);font-size:0.76rem;color:var(--text-muted);
+    border:1px solid var(--border);padding:5px 10px;border-radius:3px;
+  }
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{position:relative;padding-left:28px;border-left:1px solid var(--border);}
+  .tl-item{position:relative;margin-bottom:56px;}
+  .tl-item:last-child{margin-bottom:0;}
+  .tl-item .dot{
+    position:absolute;left:-33px;top:4px;width:9px;height:9px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--accent);
+  }
+  .tl-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .tl-head .role{font-size:1.15rem;font-weight:700;margin-right:12px;}
+  .tl-head .dates{font-family:var(--mono);font-size:0.78rem;color:var(--accent);}
+  .tl-head .company{font-family:var(--mono);font-size:0.85rem;color:var(--text-muted);margin-bottom:14px;display:block;}
+  .tl-item ul{margin:14px 0 0;padding-left:20px;color:var(--text-muted);}
+  .tl-item li{margin-bottom:8px;}
+  .tl-item li strong{color:var(--text);font-weight:600;}
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .project-card{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;
+    padding:26px;display:flex;flex-direction:column;gap:12px;
+  }
+  .project-card.flagship{grid-column:1 / -1;background:var(--bg-panel-2);}
+  .project-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+  .project-card h3{margin:0;font-size:1.15rem;}
+  .role-tag{
+    font-family:var(--mono);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--accent);border:1px solid var(--accent-dim);padding:4px 9px;border-radius:3px;
+    white-space:nowrap;
+  }
+  .project-card p{margin:0;color:var(--text-muted);font-size:0.95rem;}
+  .project-link{
+    font-family:var(--mono);font-size:0.8rem;color:var(--text);
+    display:inline-flex;align-items:center;gap:6px;margin-top:auto;
+    padding-top:8px;
+  }
+  .project-link .match{
+    opacity:0;transition:opacity .2s ease;color:var(--accent);font-size:0.72rem;
+  }
+  .project-card:hover .project-link .match{opacity:1;}
+  .project-link:hover{color:var(--accent);}
+  .project-link .arrow{transition:transform .15s ease;}
+  .project-link:hover .arrow{transform:translateX(3px);}
+
+  /* ---------- EDUCATION ---------- */
+  .edu-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:baseline;}
+  .edu-row .school{font-size:1.1rem;font-weight:700;}
+  .edu-row .dates{font-family:var(--mono);color:var(--accent);font-size:0.85rem;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{padding:80px 0 40px;text-align:center;}
+  footer h2{font-size:clamp(1.6rem,4vw,2.4rem);margin:0 0 16px;font-weight:700;}
+  footer p.muted{max-width:480px;margin:0 auto 32px;}
+  .contact-ctas{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
+  .foot-bottom{
+    font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    border-top:1px solid var(--border);padding-top:24px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .about-layout{grid-template-columns:1fr;}
+    .scan-target{max-width:280px;margin:0 auto;}
+    .skills-grid{grid-template-columns:repeat(2,1fr);}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .project-grid{grid-template-columns:1fr;}
+    .project-card.flagship{grid-column:auto;}
+  }
+  @media (max-width:640px){
+    nav.links{display:none;}
+    .nav-toggle{display:block;}
+    .skills-grid{grid-template-columns:1fr;}
+    section{padding:64px 0;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .scanline,.sweep,h1.hero-name,.hero-role,.hero-tagline,.hero-ctas{animation:none !important;opacity:1;transform:none;}
+    .reveal,.reveal.pre{transition:none;opacity:1 !important;transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="brand-dot"></span>MUZAMIL.MM</a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="border-bottom:1px solid var(--border);padding-top:0;">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="scanline" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-eyebrow eyebrow"><span class="bracket">[</span>SENIOR iOS DEVELOPER &mdash; ON-DEVICE AI &amp; COMPUTER VISION<span class="bracket">]</span></div>
+      <h1 class="hero-name">Muzamil Mughal</h1>
+      <p class="hero-role">Swift &middot; SwiftUI &middot; Core ML &middot; Vision &middot; 8+ years shipping production iOS</p>
+      <p class="hero-tagline">I build iOS systems that see, read, and understand documents &mdash; on-device, in milliseconds, deployed across 40+ countries.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-solid" href="#projects">View Projects</a>
+        <a class="btn btn-outline" href="assets/Muzamil_Mughal_Resume.pdf" download>Download R&eacute;sum&eacute;</a>
+        <a class="btn btn-outline" href="mailto:muzamilmughal81@gmail.com">Email Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section style="padding:0;border-bottom:1px solid var(--border);">
+    <div class="stats">
+      <div class="stat"><div class="num">8+</div><div class="label">Years Shipping iOS</div></div>
+      <div class="stat"><div class="num">40+</div><div class="label">Countries Deployed</div></div>
+      <div class="stat"><div class="num">~200ms</div><div class="label">Scan Latency (from 7s+)</div></div>
+      <div class="stat"><div class="num">~95%</div><div class="label">Extraction Accuracy</div></div>
+      <div class="stat"><div class="num">28+</div><div class="label">iOS Apps Shipped</div></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="eyebrow reveal">// ABOUT</div>
+      <h2 class="section-title reveal">Ownership, on-device.</h2>
+      <div class="about-layout">
+        <div class="reveal">
+          <p>For the past 8+ years I've been building production Swift applications &mdash; the last several focused almost entirely on <strong>on-device AI and computer vision</strong>. At PackageX, I designed and built the iOS component of the company's Vision SDK: a computer-vision and OCR engine that now runs on-device across <strong>40+ countries</strong>, cutting document processing time from 7+ seconds to roughly <strong>200ms</strong> while lifting extraction accuracy to <strong>~95%</strong>. I own that platform's iOS side end-to-end, migrated every client app onto it, and mentor the engineers building alongside me.</p>
+          <p>Before that, at SixLogics, I led a team, trained interns, and personally shipped <strong>27+ iOS apps</strong> &mdash; including two years as the sole developer behind Betway Scores, where I built an entire live-scoring, news, and notifications system from scratch.</p>
+          <p>I work across <strong>MVVM</strong>, <strong>VIPER</strong>, and <strong>Clean Architecture</strong>, and I care as much about the engineers around me as I do about the code &mdash; mentoring, code review, and technical leadership are as much a part of the job as Swift itself.</p>
+        </div>
+        <div class="scan-target reveal" aria-hidden="true">
+          <div class="doc"><span></span><span></span><span></span><span></span></div>
+          <div class="sweep"></div>
+          <div class="readout">[ SCAN: 200ms &middot; 95% ]</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="eyebrow reveal">// CORE SKILLS</div>
+      <h2 class="section-title reveal">What I build with.</h2>
+      <div class="skills-grid reveal">
+        <div class="skill-group">
+          <h3>Languages &amp; Core iOS</h3>
+          <div class="chip-row">
+            <span class="chip">Swift (Expert)</span><span class="chip">Objective-C</span><span class="chip">iOS SDK</span>
+            <span class="chip">UIKit</span><span class="chip">SwiftUI</span><span class="chip">Auto Layout</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Apple &amp; AI Frameworks</h3>
+          <div class="chip-row">
+            <span class="chip">Swift Concurrency</span><span class="chip">Core ML</span><span class="chip">Vision</span>
+            <span class="chip">ARKit</span><span class="chip">AVFoundation</span><span class="chip">MapKit</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Architecture &amp; Patterns</h3>
+          <div class="chip-row">
+            <span class="chip">MVVM</span><span class="chip">VIPER</span><span class="chip">Clean Architecture</span>
+            <span class="chip">Dependency Injection</span><span class="chip">Coordinator</span><span class="chip">SOLID</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Networking &amp; Data</h3>
+          <div class="chip-row">
+            <span class="chip">URLSession</span><span class="chip">REST</span><span class="chip">GraphQL</span>
+            <span class="chip">Codable</span><span class="chip">WebSockets</span><span class="chip">Realm</span><span class="chip">SQLite</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Performance &amp; Testing</h3>
+          <div class="chip-row">
+            <span class="chip">Instruments</span><span class="chip">Memory / ARC</span><span class="chip">XCTest</span><span class="chip">XCUITest</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>CI/CD &amp; Release</h3>
+          <div class="chip-row">
+            <span class="chip">GitHub Actions</span><span class="chip">App Store Connect</span><span class="chip">TestFlight</span><span class="chip">Code Signing</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Security &amp; Cloud</h3>
+          <div class="chip-row">
+            <span class="chip">SSL Pinning</span><span class="chip">Biometrics</span><span class="chip">Firebase</span><span class="chip">AWS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>AI / Computer Vision</h3>
+          <div class="chip-row">
+            <span class="chip">On-device OCR</span><span class="chip">Vision-based scanning</span><span class="chip">AI Model Integration</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Leadership &amp; Process</h3>
+          <div class="chip-row">
+            <span class="chip">Technical Leadership</span><span class="chip">Team Mentoring</span><span class="chip">Agile</span><span class="chip">Interviewing &amp; Hiring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="eyebrow reveal">// EXPERIENCE</div>
+      <h2 class="section-title reveal">Where I've shipped.</h2>
+      <div class="timeline reveal">
+
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-head">
+            <span class="role">Senior iOS Developer</span>
+            <span class="dates">Oct 2021 &ndash; Present</span>
+          </div>
+          <span class="company">PackageX &middot; Lahore, Pakistan</span>
+          <ul>
+            <li>Designed and built the iOS component of PackageX's <strong>Vision SDK</strong>, an on-device computer vision and OCR engine now deployed across <strong>40+ countries</strong> &mdash; cutting document processing time from 7+ seconds to roughly 200ms and improving extraction accuracy to ~95%.</li>
+            <li>Migrated every in-house and client-facing app onto the new SDK, becoming its <strong>sole iOS owner</strong>.</li>
+            <li>Mentored and onboarded <strong>2&ndash;3 iOS engineers</strong>, establishing debugging, performance, and code-review practices.</li>
+            <li>Led requirement analysis and technical solutioning with cross-functional and client stakeholders, consistently hitting App Store release deadlines.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-head">
+            <span class="role">Senior iOS Developer</span>
+            <span class="dates">Mar 2018 &ndash; Oct 2021</span>
+          </div>
+          <span class="company">SixLogics / SportCC</span>
+          <ul>
+            <li>Delivered <strong>27+ iOS applications</strong> in Swift across concurrent projects, with 8 published to the App Store &mdash; spanning sports networking, live scoring, and payments.</li>
+            <li><strong>Led and managed a team</strong>, including training and mentoring interns as they ramped up on iOS development.</li>
+            <li>Sole iOS developer for 2 years on <strong>Betway Scores</strong> &mdash; built its entire scoring, news, and push-notification infrastructure from the ground up.</li>
+            <li>Main developer on <strong>Player Match</strong>, building multi-stage role-specific login, a social feed with video, in-app chat, and the scoring module.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-head">
+            <span class="role">iOS Developer</span>
+            <span class="dates">Nov 2017 &ndash; Feb 2018</span>
+          </div>
+          <span class="company">Ecom Planners</span>
+          <ul>
+            <li>Built and maintained iPad applications using UIKit and Objective-C, ensuring stability and consistent performance.</li>
+            <li>Coordinated build delivery against tight deadlines while maintaining code quality standards.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-head">
+            <span class="role">iOS Intern</span>
+            <span class="dates">Jul 2017 &ndash; Sep 2017</span>
+          </div>
+          <span class="company">OneByte LLC</span>
+          <ul>
+            <li>Contributed to application design and implementation using UIKit, with back-end development in Objective-C.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="eyebrow reveal">// SELECTED PROJECTS</div>
+      <h2 class="section-title reveal">Things I've shipped.</h2>
+      <div class="project-grid reveal">
+
+        <div class="project-card flagship viewfinder">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="project-top">
+            <h3>PackageX Vision SDK</h3>
+            <span class="role-tag">iOS Lead &middot; Sole Owner</span>
+          </div>
+          <p>On-device computer vision and OCR engine for logistics documents. Deployed across 40+ countries, cutting processing time from 7+ seconds to ~200ms at ~95% extraction accuracy. I designed and built the entire iOS component.</p>
+          <a class="project-link" href="https://packagex.io/platform/vision-sdk" target="_blank" rel="noopener">
+            <span class="arrow">&rarr;</span> packagex.io/platform/vision-sdk <span class="match">[ MATCH: 95% ]</span>
+          </a>
+        </div>
+
+        <div class="project-card viewfinder">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="project-top">
+            <h3>Betway Scores</h3>
+            <span class="role-tag">Sole Developer &middot; 2yrs</span>
+          </div>
+          <p>Live sports scores, news, and stats app. Built the entire scoring, news, and push-notification infrastructure from scratch.</p>
+          <a class="project-link" href="https://apps.apple.com/pk/app/betway-scores-news-stats/id1552348455" target="_blank" rel="noopener">
+            <span class="arrow">&rarr;</span> View on App Store <span class="match">[ MATCH ]</span>
+          </a>
+        </div>
+
+        <div class="project-card viewfinder">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="project-top">
+            <h3>Player Match</h3>
+            <span class="role-tag">Main Developer</span>
+          </div>
+          <p>Football networking platform. Built multi-stage role-specific login, a social feed with video posts, in-app chat, and the scoring module.</p>
+          <a class="project-link" href="https://www.playermatch.com" target="_blank" rel="noopener">
+            <span class="arrow">&rarr;</span> playermatch.com <span class="match">[ MATCH ]</span>
+          </a>
+        </div>
+
+        <div class="project-card viewfinder">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="project-top">
+            <h3>Fan Challenge</h3>
+            <span class="role-tag">Primary Developer</span>
+          </div>
+          <p>Sports fan engagement app, built solo end-to-end from architecture through App Store release.</p>
+          <a class="project-link" href="https://apps.apple.com/pk/app/fan-challenge-app/id1466357669" target="_blank" rel="noopener">
+            <span class="arrow">&rarr;</span> View on App Store <span class="match">[ MATCH ]</span>
+          </a>
+        </div>
+
+        <div class="project-card viewfinder">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="project-top">
+            <h3>Sport Score App</h3>
+            <span class="role-tag">Primary Developer</span>
+          </div>
+          <p>Sports scoring and stats application owned end-to-end from architecture through release.</p>
+          <a class="project-link" href="https://apps.apple.com/pk/app/sport-score-app/id1120169175" target="_blank" rel="noopener">
+            <span class="arrow">&rarr;</span> View on App Store <span class="match">[ MATCH ]</span>
+          </a>
+        </div>
+
+        <div class="project-card viewfinder">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="project-top">
+            <h3>Park4U</h3>
+            <span class="role-tag">Sole Developer</span>
+          </div>
+          <p>Parking app with integrated in-app payments and a polished, custom UI &mdash; built solo.</p>
+          <a class="project-link" href="https://apps.apple.com/pk/app/park4u-parkerings-app/id1534726820" target="_blank" rel="noopener">
+            <span class="arrow">&rarr;</span> View on App Store <span class="match">[ MATCH ]</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="eyebrow reveal">// EDUCATION</div>
+      <h2 class="section-title reveal">Where it started.</h2>
+      <div class="edu-row reveal">
+        <span class="school">Government College University &mdash; BS, Computer Science</span>
+        <span class="dates">2013 &ndash; 2017 &middot; Lahore, Pakistan</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="justify-content:center;display:flex;">// CONTACT</div>
+    <h2 class="reveal">Let's build something that ships.</h2>
+    <p class="muted reveal">Open to Senior iOS and on-device AI roles. The fastest way to reach me is email or LinkedIn.</p>
+    <div class="contact-ctas reveal">
+      <a class="btn btn-solid" href="mailto:muzamilmughal81@gmail.com">muzamilmughal81@gmail.com</a>
+      <a class="btn btn-outline" href="https://pk.linkedin.com/in/muzamil-mughal-14846273" target="_blank" rel="noopener">LinkedIn &rarr;</a>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span id="year"></span> Muzamil Mughal &middot; Lahore, Pakistan</span>
+      <span>Built with on-device precision.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll reveal (progressive enhancement — content is visible by default)
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    reveals.forEach(el => el.classList.add('pre'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  }
+</script>
+
+</body>
+</html>
